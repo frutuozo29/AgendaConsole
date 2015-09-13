@@ -9,11 +9,11 @@ namespace Agenda
     class Aplicacao
     {
         public static List<Pessoa> listaPessoas;
-        Pessoa pessoa;
+        ManutencaoPessoa manutencaoPessoa;
 
         public Aplicacao()
         {
-            pessoa = new Pessoa();
+            manutencaoPessoa = new ManutencaoPessoa();
         }
 
 
@@ -47,22 +47,30 @@ namespace Agenda
 
         public int MenuPrincipal()
         {
-            var opcoes = new[] { 1, 2, 3, 4, 5 };
-            int opcao;
-            do
+            try
             {
-                LimparConsole();
-                Console.WriteLine(".: Sistema de Agenda CSharp :.");
-                Console.WriteLine("");
-                Console.WriteLine("1- Cadastrar Pessoa");
-                Console.WriteLine("2- Listar Pessoas");
-                Console.WriteLine("3- Excluir Pessoa");
-                Console.WriteLine("4- Editar Pessoas");
-                Console.WriteLine("5- Sair");
-                Console.Write("Informe uma opção: ");
-                opcao = int.Parse(Console.ReadLine());
-            } while (!opcoes.Contains(opcao));
-            return opcao;
+                var opcoes = new[] { 1, 2, 3, 4, 5 };
+                int opcao;
+                do
+                {
+                    LimparConsole();
+                    Console.WriteLine(".: Sistema de Agenda CSharp :.");
+                    Console.WriteLine("");
+                    Console.WriteLine("1- Cadastrar Pessoa");
+                    Console.WriteLine("2- Listar Pessoas");
+                    Console.WriteLine("3- Excluir Pessoa");
+                    Console.WriteLine("4- Editar Pessoas");
+                    Console.WriteLine("5- Sair");
+                    Console.Write("Informe uma opção: ");
+                    opcao = int.Parse(Console.ReadLine());
+                } while (!opcoes.Contains(opcao));
+                return opcao;
+            }
+            catch (Exception)
+            {
+                return 5;
+                throw;
+            }
         }
 
 
@@ -77,7 +85,7 @@ namespace Agenda
             Console.Write("Digite o Telefone:");
             var telefone = Console.ReadLine();
 
-            var retorno = pessoa.PersistirPessoa(GetListaPessoas(), nome, telefone, idade);
+            var retorno = manutencaoPessoa.PersistirPessoa(GetListaPessoas(), nome, telefone, idade);
             Console.WriteLine(retorno);
             Console.ReadKey();
         }
@@ -86,7 +94,7 @@ namespace Agenda
         {
             LimparConsole();
             Console.WriteLine(" .: Exibição da Lista de Pessoas :. ");
-            pessoa.ListarPessoa(GetListaPessoas());
+            manutencaoPessoa.ListarPessoa(GetListaPessoas());
             Console.ReadKey();
         }
 
@@ -94,7 +102,7 @@ namespace Agenda
         {
             LimparConsole();
             Console.WriteLine(" .: Exclusão de Pessoa :. ");
-            var retorno = pessoa.ExcluirPessoa(GetListaPessoas());
+            var retorno = manutencaoPessoa.ExcluirPessoa(GetListaPessoas());
             Console.WriteLine(retorno);
             Console.ReadKey();
         }
@@ -103,7 +111,7 @@ namespace Agenda
         {
             LimparConsole();
             Console.WriteLine(" .: Editando Pessoas :. ");
-            var retorno = pessoa.EditarPessoa(GetListaPessoas());
+            var retorno = manutencaoPessoa.EditarPessoa(GetListaPessoas());
             Console.WriteLine(retorno);
             Console.ReadKey();
         }
