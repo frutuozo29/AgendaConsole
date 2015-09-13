@@ -12,7 +12,6 @@ namespace Agenda
         {
             var Aplicacao = new Aplicacao();
             int opcao;
-
             do
             {
                 opcao = Aplicacao.MenuPrincipal();
