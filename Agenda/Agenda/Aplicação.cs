@@ -104,6 +104,7 @@ namespace Agenda
             Console.WriteLine(" .: Exclusão de Pessoa :. ");
             var retorno = manutencaoPessoa.ExcluirPessoa(GetListaPessoas());
             Console.WriteLine(retorno);
+
             Console.ReadKey();
         }
 
