@@ -1,15 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Agenda
+﻿namespace Agenda
 {
     class Pessoa
     {
-        public string nome;
-        public int idade;
-        public string telefone;        
+        public string Nome { get; set; }
+        public string Telefone { get; set; }
+        public int Idade { get; set; }
+
+        public override string ToString()
+        {
+            var retorno =  $"------------------------------------------\n"+
+                           $"Nome    : {Nome}\n"+
+                           $"Idade   : {Idade}\n"+
+                           $"Telefone: {Telefone}\n"+
+                           $"------------------------------------------";
+            return retorno;
+        }
     }
 }

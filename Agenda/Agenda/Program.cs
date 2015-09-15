@@ -15,7 +15,7 @@ namespace Agenda
             do
             {
                 opcao = Aplicacao.MenuPrincipal();
-                Aplicacao.ValidarOpcao(opcao);
+                Aplicacao.SelecionarMenuPelaOpcao(opcao);
             } while (opcao != 5);
 
             Console.Clear();

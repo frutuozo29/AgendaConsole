@@ -1,21 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Agenda
 {
-    class ManutencaoPessoa
+    class RepositorioPessoa
     {
-        public string PersistirPessoa(List<Pessoa> listaPessoas, string nome, string telefone, int idade)
+        public static List<Pessoa> listaPessoas;      
+
+        public RepositorioPessoa()
+        {
+            listaPessoas = new List<Pessoa>();
+        }
+
+        public string PersistirPessoa(string nome, string telefone, int idade)
         {
             try
             {
-                Pessoa pessoa = new Pessoa();
-                pessoa.nome = nome;
-                pessoa.telefone = telefone;
-                pessoa.idade = idade;
+                Pessoa pessoa = new Pessoa { Nome = nome, Idade = idade, Telefone = telefone};
                 listaPessoas.Add(pessoa);
                 return "Pessoa cadastrada com Sucesso!";
             }
@@ -26,36 +27,30 @@ namespace Agenda
             }
         }
 
-        public void ListarPessoa(List<Pessoa> listaPessoas)
+        public void ListarPessoa()
         {
             foreach (var lista in listaPessoas)
-            {
-                Console.WriteLine("------------------------------------------");
-                Console.WriteLine("Nome    : " + lista.nome);
-                Console.WriteLine("Idade   : " + lista.idade.ToString());
-                Console.WriteLine("Telefone: " + lista.telefone);
-                Console.WriteLine("------------------------------------------");
-            }
+                Console.WriteLine(lista);
         }
 
-        private void MontarPessoasNaTela(List<Pessoa> listaPessoas)
+        private void MontarPessoasNaTela()
         {
             int count = 0;
             Console.WriteLine("------------------------------------------");
             foreach (var lista in listaPessoas)
             {
-                Console.WriteLine(count.ToString() + " - " + lista.nome);
+                Console.WriteLine(count.ToString() + " - " + lista.Nome);
                 count++;
             }
             Console.WriteLine("------------------------------------------");
         }
 
 
-        public string ExcluirPessoa(List<Pessoa> listaPessoas)
+        public string ExcluirPessoa()
         {
             try
             {
-                MontarPessoasNaTela(listaPessoas);
+                MontarPessoasNaTela();
                 Console.Write("Informe o Código da Pessoa que deseja excluir: ");
                 var index = int.Parse(Console.ReadLine());
 
@@ -70,41 +65,39 @@ namespace Agenda
             }
         }
 
-        public string EditarPessoa(List<Pessoa> listaPessoas)
+        public string EditarPessoa()
         {
             try
             {
-                MontarPessoasNaTela(listaPessoas);
+                MontarPessoasNaTela();
                 Console.Write("Informe o Código da Pessoa que deseja Editar:");
                 var index = int.Parse(Console.ReadLine());
                 Console.WriteLine("");
 
                 string nova = "";
-                Console.Write("< Nome: " + listaPessoas[index].nome + ">" + " Informa o Novo Nome: ");
+                Console.Write(string.Format("< Nome: {0} > Informa o Novo Nome: ", listaPessoas[index].Nome));
                 nova = Console.ReadLine();
                 if (!String.IsNullOrEmpty(nova))
                 {
-                    listaPessoas[index].nome = nova;
+                    listaPessoas[index].Nome = nova;
                     Console.WriteLine("");
                 }
 
-                Console.Write("< Idade: " + listaPessoas[index].idade + ">" + " Informa a Nova Idade: ");
+                Console.Write(string.Format("< Idade: {0} > Informa a Nova Idade: ", listaPessoas[index].Idade));
                 nova = "";
                 nova = Console.ReadLine();
                 if (!String.IsNullOrEmpty(nova))
                 {
-                    listaPessoas[index].idade = int.Parse(nova);
+                    listaPessoas[index].Idade = int.Parse(nova);
                     Console.WriteLine("");
                 }
 
-                Console.Write("< Telefone: " + listaPessoas[index].telefone + ">" + " Informa o Novo Telefone: ");
+                Console.Write(string.Format("< Telefone: {0}> Informa o Novo Telefone: ", listaPessoas[index].Telefone));
                 nova = "";
                 nova = Console.ReadLine();
                 if (!String.IsNullOrEmpty(nova))
-                {
-                    listaPessoas[index].telefone = nova;
-                }
-
+                    listaPessoas[index].Telefone = nova;
+        
                 return "Informações alteradas com sucesso!";
             }
             catch (Exception)

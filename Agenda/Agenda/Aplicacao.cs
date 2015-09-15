@@ -1,19 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Agenda
 {
     class Aplicacao
-    {
-        public static List<Pessoa> listaPessoas;
-        ManutencaoPessoa manutencaoPessoa;
+    {        
+        RepositorioPessoa repositorioPessoa;
 
         public Aplicacao()
         {
-            manutencaoPessoa = new ManutencaoPessoa();
+            repositorioPessoa = new RepositorioPessoa();
         }
 
 
@@ -23,7 +19,7 @@ namespace Agenda
         }
 
 
-        public void ValidarOpcao(int opcao)
+        public void SelecionarMenuPelaOpcao(int opcao)
         {
             switch (opcao)
             {
@@ -85,7 +81,7 @@ namespace Agenda
             Console.Write("Digite o Telefone:");
             var telefone = Console.ReadLine();
 
-            var retorno = manutencaoPessoa.PersistirPessoa(GetListaPessoas(), nome, telefone, idade);
+            var retorno = repositorioPessoa.PersistirPessoa(nome, telefone, idade);
             Console.WriteLine(retorno);
             Console.ReadKey();
         }
@@ -94,7 +90,7 @@ namespace Agenda
         {
             LimparConsole();
             Console.WriteLine(" .: Exibição da Lista de Pessoas :. ");
-            manutencaoPessoa.ListarPessoa(GetListaPessoas());
+            repositorioPessoa.ListarPessoa();
             Console.ReadKey();
         }
 
@@ -102,9 +98,8 @@ namespace Agenda
         {
             LimparConsole();
             Console.WriteLine(" .: Exclusão de Pessoa :. ");
-            var retorno = manutencaoPessoa.ExcluirPessoa(GetListaPessoas());
+            var retorno = repositorioPessoa.ExcluirPessoa();
             Console.WriteLine(retorno);
-
             Console.ReadKey();
         }
 
@@ -112,23 +107,9 @@ namespace Agenda
         {
             LimparConsole();
             Console.WriteLine(" .: Editando Pessoas :. ");
-            var retorno = manutencaoPessoa.EditarPessoa(GetListaPessoas());
+            var retorno = repositorioPessoa.EditarPessoa();
             Console.WriteLine(retorno);
             Console.ReadKey();
         }
-
-        public List<Pessoa> GetListaPessoas()
-        {
-            if (listaPessoas == null)
-            {
-                listaPessoas = new List<Pessoa>();
-                return listaPessoas;
-            }
-            else
-            {
-                return listaPessoas;
-            }
-        }
-
     }
 }
