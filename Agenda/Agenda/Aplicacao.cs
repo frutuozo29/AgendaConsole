@@ -11,14 +11,12 @@ namespace Agenda
         {
             repositorioPessoa = new RepositorioPessoa();
         }
-
-
+        
         public void LimparConsole()
         {
             Console.Clear();
         }
-
-
+        
         public void SelecionarMenuPelaOpcao(int opcao)
         {
             switch (opcao)
