@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Agenda
 {
     class RepositorioPessoa
     {
-        public static List<Pessoa> listaPessoas;      
+        public static List<Pessoa> listaPessoas;
 
         public RepositorioPessoa()
         {
@@ -16,7 +17,7 @@ namespace Agenda
         {
             try
             {
-                Pessoa pessoa = new Pessoa { Nome = nome, Idade = idade, Telefone = telefone};
+                Pessoa pessoa = new Pessoa { Nome = nome, Idade = idade, Telefone = telefone };
                 listaPessoas.Add(pessoa);
                 return "Pessoa cadastrada com Sucesso!";
             }
@@ -29,17 +30,26 @@ namespace Agenda
 
         public void ListarPessoa()
         {
-            foreach (var lista in listaPessoas)
-                Console.WriteLine(lista);
+            listaPessoas.ForEach(lista => Console.WriteLine(lista));
         }
 
-        private void MontarPessoasNaTela()
+        public void ListarPessoasItens()
+        {
+            MontarPessoasNaTela(true);
+        }
+
+        private void MontarPessoasNaTela(bool mostrarItens = false)
         {
             int count = 0;
             Console.WriteLine("------------------------------------------");
             foreach (var lista in listaPessoas)
             {
                 Console.WriteLine(count.ToString() + " - " + lista.Nome);
+                if (mostrarItens)
+                {
+                    var listaItens = lista.GetListItens();
+                    listaItens.ForEach(item => Console.WriteLine(item));
+                }
                 count++;
             }
             Console.WriteLine("------------------------------------------");
@@ -75,7 +85,7 @@ namespace Agenda
                 Console.WriteLine("");
 
                 string nova = "";
-                Console.Write(string.Format("< Nome: {0} > Informa o Novo Nome: ", listaPessoas[index].Nome));
+                Console.Write("< Nome: {0} > Informa o Novo Nome: ", listaPessoas[index].Nome);
                 nova = Console.ReadLine();
                 if (!String.IsNullOrEmpty(nova))
                 {
@@ -83,7 +93,7 @@ namespace Agenda
                     Console.WriteLine("");
                 }
 
-                Console.Write(string.Format("< Idade: {0} > Informa a Nova Idade: ", listaPessoas[index].Idade));
+                Console.Write("< Idade: {0} > Informa a Nova Idade: ", listaPessoas[index].Idade);
                 nova = "";
                 nova = Console.ReadLine();
                 if (!String.IsNullOrEmpty(nova))
@@ -92,17 +102,53 @@ namespace Agenda
                     Console.WriteLine("");
                 }
 
-                Console.Write(string.Format("< Telefone: {0}> Informa o Novo Telefone: ", listaPessoas[index].Telefone));
+                Console.Write("< Telefone: {0}> Informa o Novo Telefone: ", listaPessoas[index].Telefone);
                 nova = "";
                 nova = Console.ReadLine();
                 if (!String.IsNullOrEmpty(nova))
                     listaPessoas[index].Telefone = nova;
-        
+
                 return "Informações alteradas com sucesso!";
             }
             catch (Exception)
             {
                 return "Não foi possível alterar as informações!";
+                throw;
+            }
+        }       
+
+        public Pessoa SelecionarPessoa()
+        {
+            try
+            {
+                Console.Write("Informe o Nome da Pessoa que deseja pesquisar: ");
+                var nome = Console.ReadLine();
+                var queryPessoa = from pessoa in listaPessoas
+                            where pessoa.Nome.Contains(nome)
+                            select pessoa;
+
+                if (queryPessoa.Count() != 0)
+                {
+                    int x = 0;
+                    Console.WriteLine($"Foram encontrada(s) {queryPessoa.Count().ToString()} Pessoa(s) com esse Nome.");
+                    Console.WriteLine("-----------------------------------------------------------");
+                    foreach (var pessoa in queryPessoa)
+                    {
+                        Console.WriteLine(x.ToString() + " - " + pessoa.Nome);
+                        x++;
+                    }
+                    Console.Write("Selecione a que deseja incluir o Item:");
+                    var index = int.Parse(Console.ReadLine());
+                    return queryPessoa.ElementAt(index);
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception)
+            {
+                return null;
                 throw;
             }
         }

@@ -21,7 +21,6 @@ namespace Agenda
             Console.Clear();
             Console.WriteLine("Fim da Aplicação.");
             Console.ReadKey();
-
         }
     }
 }
