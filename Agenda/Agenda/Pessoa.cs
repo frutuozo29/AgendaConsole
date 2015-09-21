@@ -8,16 +8,16 @@ namespace Agenda
         public string Telefone { get; set; }
         public int Idade { get; set; }
 
-        public static List<Item> listaItens;
-
+        public List<Item> ListaItens { get; set; }
+        
         public Pessoa()
         {
-            listaItens = new List<Item>();
+            ListaItens = new List<Item>();
         }
 
         public override string ToString()
         {
-            foreach (Item item in listaItens)
+            foreach (Item item in ListaItens)
             {
                 string itens = item.ToString() + "\n";
             }
@@ -32,7 +32,7 @@ namespace Agenda
 
         public List<Item> GetListItens()
         {
-            return listaItens;
+            return ListaItens;
         }
 
     }

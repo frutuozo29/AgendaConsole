@@ -9,9 +9,9 @@ namespace Agenda
         {
             try
             {
-                Console.Write("Informe uma Descrição:");
+                Console.Write("Informe uma Descrição: ");
                 var descricao = Console.ReadLine();
-                Console.Write("Informe o Valor do Item");
+                Console.Write("Informe o Valor do Item: ");
                 var valor = double.Parse(Console.ReadLine());
 
                 var item = new Item() { Descricao = descricao, Valor = valor };
