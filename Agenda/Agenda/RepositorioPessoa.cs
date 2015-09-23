@@ -115,7 +115,7 @@ namespace Agenda
                 return "Não foi possível alterar as informações!";
                 throw;
             }
-        }       
+        }
 
         public Pessoa SelecionarPessoa()
         {
@@ -124,9 +124,9 @@ namespace Agenda
                 Console.Write("Informe o Nome da Pessoa que deseja pesquisar: ");
                 var nome = Console.ReadLine();
                 var queryPessoa = from pessoa in listaPessoas
-                            where pessoa.Nome.Contains(nome)
-                            select pessoa;
-
+                                  where pessoa.Nome.Contains(nome)
+                                  select pessoa;
+                
                 if (queryPessoa.Count() != 0)
                 {
                     int x = 0;
