@@ -2,19 +2,14 @@
 
 namespace Agenda
 {
-    class RepositorioItem
+    class RepositorioItem : IRepositorioItem
     {
-
-        public string CadastrarItens(Pessoa pessoa)
+        public string Adicionar(string descricao, double valor)
         {
             try
             {
-                Console.Write("Informe uma Descrição: ");
-                var descricao = Console.ReadLine();
-                Console.Write("Informe o Valor do Item: ");
-                var valor = double.Parse(Console.ReadLine());
-
                 var item = new Item() { Descricao = descricao, Valor = valor };
+                var pessoa = new Pessoa();
                 pessoa.GetListItens().Add(item);
                 return "Item cadastrado com Sucesso!";
             }
@@ -25,5 +20,24 @@ namespace Agenda
             }
         }
 
+        public string Editar()
+        {
+            throw new NotImplementedException();
+        }
+
+        public string Excluir()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Listar()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Item Pesquisar()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

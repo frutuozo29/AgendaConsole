@@ -6,12 +6,12 @@ namespace Agenda
     class Aplicacao
     {
         IRepositorioPessoa _repositorioPessoa;
-        RepositorioItem repositorioItem;
+        IRepositorioItem _repositorioItem;
 
-        public Aplicacao(IRepositorioPessoa repositorioPessoa)
+        public Aplicacao(IRepositorioPessoa repositorioPessoa, IRepositorioItem repositorioItem)
         {
             _repositorioPessoa = repositorioPessoa;
-            repositorioItem = new RepositorioItem();
+            _repositorioItem = repositorioItem;
         }
 
         public void LimparConsole()
@@ -134,7 +134,12 @@ namespace Agenda
             var pessoa = _repositorioPessoa.Pesquisar();
             if (pessoa != null)
             {
-                var retorno = repositorioItem.CadastrarItens(pessoa);
+                Console.Write("Informe uma Descrição: ");
+                var descricao = Console.ReadLine();
+                Console.Write("Informe o Valor do Item: ");
+                var valor = double.Parse(Console.ReadLine());
+
+                var retorno = _repositorioItem.Adicionar(descricao, valor);
                 Console.WriteLine(retorno);
                 Console.ReadKey();
             }

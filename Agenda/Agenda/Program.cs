@@ -10,7 +10,7 @@ namespace Agenda
     {
         static void Main(string[] args)
         {          
-            var Aplicacao = new Aplicacao(new RepositorioPessoa());
+            var Aplicacao = new Aplicacao(new RepositorioPessoa(), new RepositorioItem());
             int opcao;
             do
             {
