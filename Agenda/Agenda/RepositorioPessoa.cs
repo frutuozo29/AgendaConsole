@@ -137,6 +137,7 @@ namespace Agenda
                         Console.WriteLine(x.ToString() + " - " + pessoa.Nome);
                         x++;
                     }
+                    Console.WriteLine("-----------------------------------------------------------");
                     Console.Write("Selecione a que deseja incluir o Item:");
                     var index = int.Parse(Console.ReadLine());
                     return queryPessoa.ElementAt(index);
