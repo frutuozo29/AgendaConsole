@@ -9,8 +9,8 @@ namespace Agenda
     class Program
     {
         static void Main(string[] args)
-        {
-            var Aplicacao = new Aplicacao();
+        {          
+            var Aplicacao = new Aplicacao(new RepositorioPessoa());
             int opcao;
             do
             {

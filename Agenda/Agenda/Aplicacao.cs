@@ -5,12 +5,12 @@ namespace Agenda
 {
     class Aplicacao
     {
-        RepositorioPessoa repositorioPessoa;
+        IRepositorioPessoa _repositorioPessoa;
         RepositorioItem repositorioItem;
 
-        public Aplicacao()
+        public Aplicacao(IRepositorioPessoa repositorioPessoa)
         {
-            repositorioPessoa = new RepositorioPessoa();
+            _repositorioPessoa = repositorioPessoa;
             repositorioItem = new RepositorioItem();
         }
 
@@ -96,7 +96,7 @@ namespace Agenda
             var telefone = Console.ReadLine();
 
 
-            var retorno = repositorioPessoa.PersistirPessoa(nome, telefone, idade);
+            var retorno = _repositorioPessoa.Adicionar(nome, telefone, idade);
             Console.WriteLine(retorno);
             Console.ReadKey();
         }
@@ -105,7 +105,7 @@ namespace Agenda
         {
             LimparConsole();
             Console.WriteLine(" .: Exibição da Lista de Pessoas :. ");
-            repositorioPessoa.ListarPessoa();
+            _repositorioPessoa.Listar();
             Console.ReadKey();
         }
 
@@ -113,7 +113,7 @@ namespace Agenda
         {
             LimparConsole();
             Console.WriteLine(" .: Exclusão de Pessoa :. ");
-            var retorno = repositorioPessoa.ExcluirPessoa();
+            var retorno = _repositorioPessoa.Excluir();
             Console.WriteLine(retorno);
             Console.ReadKey();
         }
@@ -122,7 +122,7 @@ namespace Agenda
         {
             LimparConsole();
             Console.WriteLine(" .: Editando Pessoas :. ");
-            var retorno = repositorioPessoa.EditarPessoa();
+            var retorno = _repositorioPessoa.Editar();
             Console.WriteLine(retorno);
             Console.ReadKey();
         }
@@ -131,7 +131,7 @@ namespace Agenda
         {
             LimparConsole();
             Console.WriteLine(" .: Cadastro de Itens da Pessoa :.");
-            var pessoa = repositorioPessoa.SelecionarPessoa();
+            var pessoa = _repositorioPessoa.Pesquisar();
             if (pessoa != null)
             {
                 var retorno = repositorioItem.CadastrarItens(pessoa);
@@ -149,7 +149,7 @@ namespace Agenda
         {
             LimparConsole();
             Console.WriteLine(" .: Exibição da Lista de Pessoas e seus Itens :. ");
-            repositorioPessoa.ListarPessoasItens();
+           // _repositorioPessoa.ListarPessoasItens();
             Console.ReadKey();
         }        
     }

@@ -4,33 +4,13 @@ using System.Linq;
 
 namespace Agenda
 {
-    class RepositorioPessoa
+    class RepositorioPessoa : IRepositorioPessoa
     {
         public static List<Pessoa> listaPessoas;
 
         public RepositorioPessoa()
         {
             listaPessoas = new List<Pessoa>();
-        }
-
-        public string PersistirPessoa(string nome, string telefone, int idade)
-        {
-            try
-            {
-                Pessoa pessoa = new Pessoa { Nome = nome, Idade = idade, Telefone = telefone };
-                listaPessoas.Add(pessoa);
-                return "Pessoa cadastrada com Sucesso!";
-            }
-            catch (Exception)
-            {
-                return "Ocorreu um erro ao salvar uma nova pessoa";
-                throw;
-            }
-        }
-
-        public void ListarPessoa()
-        {
-            listaPessoas.ForEach(lista => Console.WriteLine(lista));
         }
 
         public void ListarPessoasItens()
@@ -56,7 +36,27 @@ namespace Agenda
         }
 
 
-        public string ExcluirPessoa()
+        public void Listar()
+        {
+            listaPessoas.ForEach(lista => Console.WriteLine(lista));
+        }
+
+        public string Adicionar(string nome, string telefone, int idade)
+        {
+            try
+            {
+                Pessoa pessoa = new Pessoa { Nome = nome, Idade = idade, Telefone = telefone };
+                listaPessoas.Add(pessoa);
+                return "Pessoa cadastrada com Sucesso!";
+            }
+            catch (Exception)
+            {
+                return "Ocorreu um erro ao salvar uma nova pessoa";
+                throw;
+            }
+        }
+
+        public string Excluir()
         {
             try
             {
@@ -75,7 +75,7 @@ namespace Agenda
             }
         }
 
-        public string EditarPessoa()
+        public string Editar()
         {
             try
             {
@@ -117,7 +117,7 @@ namespace Agenda
             }
         }
 
-        public Pessoa SelecionarPessoa()
+        public Pessoa Pesquisar()
         {
             try
             {
@@ -126,7 +126,7 @@ namespace Agenda
                 var queryPessoa = from pessoa in listaPessoas
                                   where pessoa.Nome.Contains(nome)
                                   select pessoa;
-                
+
                 if (queryPessoa.Count() != 0)
                 {
                     int x = 0;

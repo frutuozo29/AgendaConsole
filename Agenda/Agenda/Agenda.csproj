@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Aplicacao.cs" />
+    <Compile Include="IRepositorioPessoa.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="RepositorioItem.cs" />
     <Compile Include="RepositorioPessoa.cs" />
