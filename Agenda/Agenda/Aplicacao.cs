@@ -95,7 +95,6 @@ namespace Agenda
             Console.Write("Digite o Telefone:");
             var telefone = Console.ReadLine();
 
-
             var retorno = _repositorioPessoa.Adicionar(nome, telefone, idade);
             Console.WriteLine(retorno);
             Console.ReadKey();
@@ -139,7 +138,7 @@ namespace Agenda
                 Console.Write("Informe o Valor do Item: ");
                 var valor = double.Parse(Console.ReadLine());
 
-                var retorno = _repositorioItem.Adicionar(descricao, valor);
+                var retorno = _repositorioItem.Adicionar(pessoa, descricao, valor);
                 Console.WriteLine(retorno);
                 Console.ReadKey();
             }

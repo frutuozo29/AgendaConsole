@@ -4,12 +4,11 @@ namespace Agenda
 {
     class RepositorioItem : IRepositorioItem
     {
-        public string Adicionar(string descricao, double valor)
+        public string Adicionar(Pessoa pessoa, string descricao, double valor)
         {
             try
             {
                 var item = new Item() { Descricao = descricao, Valor = valor };
-                var pessoa = new Pessoa();
                 pessoa.GetListItens().Add(item);
                 return "Item cadastrado com Sucesso!";
             }

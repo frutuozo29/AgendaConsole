@@ -4,7 +4,7 @@
     {
         void Listar();
 
-        string Adicionar(string descricao, double valor);
+        string Adicionar(Pessoa pessoa, string descricao, double valor);
 
         string Excluir();
 
