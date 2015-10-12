@@ -5,10 +5,10 @@ namespace Agenda
 {
     class Aplicacao
     {
-        IRepositorioPessoa _repositorioPessoa;
-        IRepositorioItem _repositorioItem;
+        RepositorioPessoa _repositorioPessoa;
+        RepositorioItem _repositorioItem;
 
-        public Aplicacao(IRepositorioPessoa repositorioPessoa, IRepositorioItem repositorioItem)
+        public Aplicacao(RepositorioPessoa repositorioPessoa, RepositorioItem repositorioItem)
         {
             _repositorioPessoa = repositorioPessoa;
             _repositorioItem = repositorioItem;
@@ -59,16 +59,16 @@ namespace Agenda
                     Console.WriteLine(".: Sistema de Agenda CSharp :.");
                     Console.WriteLine("");
                     Console.WriteLine("1- Cadastrar Pessoa");
-                    Console.WriteLine("   11 Cadastrar Itens da Pessoa");
+                    //Console.WriteLine("   11 Cadastrar Itens da Pessoa");
                     Console.WriteLine("");
                     Console.WriteLine("2- Listar Pessoas");
-                    Console.WriteLine("   22 Listar Pessoas e seus Itens");
+                    //Console.WriteLine("   22 Listar Pessoas e seus Itens");
                     Console.WriteLine("");
                     Console.WriteLine("3- Excluir Pessoa");
-                    Console.WriteLine("   33 Excluir Itens da Pessoa");
+                    //Console.WriteLine("   33 Excluir Itens da Pessoa");
                     Console.WriteLine("");
                     Console.WriteLine("4- Editar Pessoas");
-                    Console.WriteLine("   44 Editar Itens da Pessoas");
+                    //Console.WriteLine("   44 Editar Itens da Pessoas");
                     Console.WriteLine("");
                     Console.WriteLine("5- Sair");
                     Console.Write("Informe uma opção: ");
@@ -104,7 +104,7 @@ namespace Agenda
         {
             LimparConsole();
             Console.WriteLine(" .: Exibição da Lista de Pessoas :. ");
-            _repositorioPessoa.Listar();
+            _repositorioPessoa.Listagem();
             Console.ReadKey();
         }
 
@@ -112,7 +112,11 @@ namespace Agenda
         {
             LimparConsole();
             Console.WriteLine(" .: Exclusão de Pessoa :. ");
-            var retorno = _repositorioPessoa.Excluir();
+            _repositorioPessoa.MontarNaTela();
+            Console.Write("Informe o Código da Pessoa que deseja excluir: ");
+            int index;
+            int.TryParse(Console.ReadLine(), out index);
+            var retorno = _repositorioPessoa.Deletar(index);
             Console.WriteLine(retorno);
             Console.ReadKey();
         }
@@ -138,8 +142,8 @@ namespace Agenda
                 Console.Write("Informe o Valor do Item: ");
                 var valor = double.Parse(Console.ReadLine());
 
-                var retorno = _repositorioItem.Adicionar(pessoa, descricao, valor);
-                Console.WriteLine(retorno);
+                //var retorno = _repositorioItem.Adicionar(pessoa, descricao, valor);
+                //Console.WriteLine(retorno);
                 Console.ReadKey();
             }
             else

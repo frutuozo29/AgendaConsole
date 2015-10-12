@@ -4,73 +4,41 @@ using System.Linq;
 
 namespace Agenda
 {
-    class RepositorioPessoa : IRepositorioPessoa
+    class RepositorioPessoa : Repositorio<Pessoa>
     {
-        public static List<Pessoa> listaPessoas;
 
-        public RepositorioPessoa()
-        {
-            listaPessoas = new List<Pessoa>();
-        }
-
-        public void ListarPessoasItens()
-        {
-            MontarPessoasNaTela(true);
-        }
-
-        private void MontarPessoasNaTela(bool mostrarItens = false)
+        public void MontarNaTela()
         {
             int count = 0;
             Console.WriteLine("------------------------------------------");
-            foreach (var lista in listaPessoas)
+            foreach (var lista in Listar())
             {
                 Console.WriteLine(count.ToString() + " - " + lista.Nome);
-                if (mostrarItens)
-                {
-                    var listaItens = lista.GetListItens();
-                    listaItens.ForEach(item => Console.WriteLine(item));
-                }
                 count++;
             }
             Console.WriteLine("------------------------------------------");
         }
 
 
-        public void Listar()
+        public void Listagem()
         {
-            listaPessoas.ForEach(lista => Console.WriteLine(lista));
+            Listar().ForEach(lista => Console.WriteLine(lista));
         }
 
         public string Adicionar(string nome, string telefone, int idade)
         {
-            try
-            {
-                Pessoa pessoa = new Pessoa { Nome = nome, Idade = idade, Telefone = telefone };
-                listaPessoas.Add(pessoa);
-                return "Pessoa cadastrada com Sucesso!";
-            }
-            catch (Exception)
-            {
-                return "Ocorreu um erro ao salvar uma nova pessoa";
-                throw;
-            }
+            Pessoa pessoa = new Pessoa { Nome = nome, Idade = idade, Telefone = telefone };
+            return Incluir(pessoa);
         }
 
-        public string Excluir()
+        public string Deletar(int index)
         {
             try
             {
-                MontarPessoasNaTela();
-                Console.Write("Informe o Código da Pessoa que deseja excluir: ");
-                var index = int.Parse(Console.ReadLine());
-
-                listaPessoas.RemoveAt(index);
-
-                return "Pessoa Excluida com Sucesso!";
+                return Excluir(index);
             }
             catch (Exception)
             {
-                return "Falha na Exclusão.";
                 throw;
             }
         }
@@ -79,34 +47,34 @@ namespace Agenda
         {
             try
             {
-                MontarPessoasNaTela();
+                MontarNaTela();
                 Console.Write("Informe o Código da Pessoa que deseja Editar:");
                 var index = int.Parse(Console.ReadLine());
                 Console.WriteLine("");
 
                 string nova = "";
-                Console.Write("< Nome: {0} > Informa o Novo Nome: ", listaPessoas[index].Nome);
+                Console.Write("< Nome: {0} > Informa o Novo Nome: ", Listar()[index].Nome);
                 nova = Console.ReadLine();
                 if (!String.IsNullOrEmpty(nova))
                 {
-                    listaPessoas[index].Nome = nova;
+                    Listar()[index].Nome = nova;
                     Console.WriteLine("");
                 }
 
-                Console.Write("< Idade: {0} > Informa a Nova Idade: ", listaPessoas[index].Idade);
+                Console.Write("< Idade: {0} > Informa a Nova Idade: ", Listar()[index].Idade);
                 nova = "";
                 nova = Console.ReadLine();
                 if (!String.IsNullOrEmpty(nova))
                 {
-                    listaPessoas[index].Idade = int.Parse(nova);
+                    Listar()[index].Idade = int.Parse(nova);
                     Console.WriteLine("");
                 }
 
-                Console.Write("< Telefone: {0}> Informa o Novo Telefone: ", listaPessoas[index].Telefone);
+                Console.Write("< Telefone: {0}> Informa o Novo Telefone: ", Listar()[index].Telefone);
                 nova = "";
                 nova = Console.ReadLine();
                 if (!String.IsNullOrEmpty(nova))
-                    listaPessoas[index].Telefone = nova;
+                    Listar()[index].Telefone = nova;
 
                 return "Informações alteradas com sucesso!";
             }
@@ -123,7 +91,7 @@ namespace Agenda
             {
                 Console.Write("Informe o Nome da Pessoa que deseja pesquisar: ");
                 var nome = Console.ReadLine();
-                var queryPessoa = from pessoa in listaPessoas
+                var queryPessoa = from pessoa in Listar()
                                   where pessoa.Nome.Contains(nome)
                                   select pessoa;
 
